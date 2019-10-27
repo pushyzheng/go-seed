@@ -1,11 +1,11 @@
-package go_seed
+package goseed
 
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
-type Response map[string]interface{}
+type response map[string]interface{}
 
 type HttpError struct {
 	Code int
@@ -21,7 +21,7 @@ func catch(ctx *gin.Context) {
 	if e := recover(); e != nil {
 		msg := e.(HttpError).Msg
 		code := e.(HttpError).Code
-		resp := Response{
+		resp := response{
 			"code":    code,
 			"message": msg,
 			"data":    nil,
@@ -35,7 +35,7 @@ func WrapHandle(f func(ctx *gin.Context) interface{}) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		defer catch(ctx)
 		result := f(ctx)
-		resp := Response{
+		resp := response{
 			"code":    200,
 			"message": nil,
 			"data":    result,
