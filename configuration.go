@@ -11,6 +11,7 @@ type ConfigurationMap map[string]interface{}
 
 var cfg *ini.File
 
+// 用户解析 ini 配置文件
 func ConfigureByIni(path string, conf ConfigurationMap) {
 	var err error
 	cfg, err = ini.Load(path)
@@ -29,6 +30,7 @@ func mapTo(section string, v interface{}) {
 	}
 }
 
+// 用于解析 Yaml 配置文件
 func ConfigureByYaml(path string, conf interface{}) {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
